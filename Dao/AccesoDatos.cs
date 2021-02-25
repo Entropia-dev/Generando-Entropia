@@ -11,13 +11,13 @@ namespace Dao
 {
     class AccesoDatos
     {
-        String rutaBDAyti = @"Data Source=localhost\SQLEXPRESS;Initial Catalog=Revestimientoayt;Integrated Security=True";
+        String rutaBDAyti = @"Data Source=localhost\SQLEXPRESS;Initial Catalog=BD_AyTi_Final;Integrated Security=True";
    
         public AccesoDatos()
         {
             // TODO: Agregar aquí la lógica del constructor
         }
-
+        //metodo privado q me devuelve la conexion
         private SqlConnection ObtenerConexion()
         {
             SqlConnection cn = new SqlConnection(rutaBDAyti);
@@ -32,7 +32,7 @@ namespace Dao
             }
         }
 
-
+        //metodo que devuelve la instancia del adaptador 
         private SqlDataAdapter ObtenerAdaptador(String consultaSql, SqlConnection cn)
         {
             SqlDataAdapter adaptador;
@@ -46,7 +46,7 @@ namespace Dao
                 return null;
             }
         }
-
+        // metodo publico para obtener una tabla
         public DataTable ObtenerTabla(String NombreTabla, String Sql)
         {
             DataSet ds = new DataSet();

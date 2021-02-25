@@ -15,10 +15,10 @@ namespace Dao
         AccesoDatos ds = new AccesoDatos();
         public Productos getProducto(Productos pro)
         {
-            DataTable tabla = ds.ObtenerTabla("Producto", "Select * from producto where IdProducto=" + pro.get_codigo_producto());
+            DataTable tabla = ds.ObtenerTabla("Productos", "Select * from Productos where Id_Productos=" + pro.get_Id_Productos());
             //pro.set_codigo_producto(Convert.ToInt32(tabla.Rows[0][0].ToString()));
-            pro.set_codigo_producto(tabla.Rows[0][1].ToString());
-            pro.set_nombre_producto(tabla.Rows[0][2].ToString());
+            pro.set_Id_Productos(tabla.Rows[0][1].ToString());
+            pro.set_Descripcion_Productos(tabla.Rows[0][2].ToString());
             return pro;
         }
 
