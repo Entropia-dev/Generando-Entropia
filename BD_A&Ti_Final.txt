@@ -1,18 +1,10 @@
 --delete
 drop database Revestimientoayt
-<<<<<<< Updated upstream
-create database BD_AyTi_Final
-
-GO 
-
-USE  BD_AyTi_Final
-=======
 create database Revestimientoayt
 
 GO 
 
 USE  Revestimientoayt
->>>>>>> Stashed changes
 GO
 
 
@@ -66,16 +58,6 @@ CONSTRAINT PK_Ventas PRIMARY KEY (Id_Ventas)
 --DETALLE DE VENTA ##################################
   
 CREATE TABLE Detalle_Ventas(
-<<<<<<< Updated upstream
-Id_Detalles int IDENTITY (1,1) NOT NULL,
-Cantidad_Detalles DECIMAL(8,2) DEFAULT '0,00',
-PU_Detalles DECIMAL(8,2) DEFAULT '0,00',
-Subtotal_Detalles DECIMAL(8,2) DEFAULT '0,00',
-Id_Producto_Detalles int NOT NULL,
-
-CONSTRAINT PK_Detalle PRIMARY KEY  ( Id_Producto_Detalles,Id_Detalles),
-CONSTRAINT FK_Detalle_Venta foreign KEY  (Id_Producto_Detalles) references Ventas (Id_Ventas)
-=======
 Id_Detalles int NOT NULL,
 Cantidad_Detalles DECIMAL(8,2) DEFAULT '0,00',
 PU_Detalles DECIMAL(8,2) DEFAULT '0,00',
@@ -83,7 +65,6 @@ Subtotal_Detalles DECIMAL(8,2) DEFAULT '0,00',
 Id_Producto_Detalles char(30) NOT NULL,
 
 CONSTRAINT PK_Detalle PRIMARY KEY  ( Id_Producto_Detalles,Id_Detalles)
->>>>>>> Stashed changes
 )
  
 --PRODUCTOS   ##########################################
@@ -92,11 +73,7 @@ CREATE TABLE Productos (
 Id_Productos CHAR(30) NOT NULL,
 PU_Productos DECIMAL(8,2) DEFAULT '0,00',
 Stock_Productos int NOT NULL,
-<<<<<<< Updated upstream
-Estado_Productos BIT not null,
-=======
 Estado_Productos BIT, not null,
->>>>>>> Stashed changes
 Categoria_Productos CHAR(20) not null,
 Descripcion_Productos VARCHAR(50) not null,
 ImageURL_Productos varchar(50) not null,
@@ -155,11 +132,7 @@ CONSTRAINT PK_Sucursales PRIMARY KEY  ( Id_Sucursales)
 CREATE TABLE Categorias(
 Id_Categorias char(20) not null,
 Descripcion_Categorias char(50) not null,
-<<<<<<< Updated upstream
-CONSTRAINT PK_Categorias PRIMARY KEY (Id_Categorias)
-=======
 CONSTRIANT PK_Cateegorias PRIMARY KEY (Id_Categorias)
->>>>>>> Stashed changes
 )
 
 
