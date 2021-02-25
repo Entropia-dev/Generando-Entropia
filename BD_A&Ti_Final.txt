@@ -1,0 +1,254 @@
+--delete
+drop database Revestimientoayt
+create database Revestimientoayt
+
+GO 
+
+USE  Revestimientoayt
+GO
+
+
+--CLIENTES   ###########################################
+
+CREATE TABLE Clientes (
+Email_Clientes  VARCHAR (50) NOT NULL,
+Nombre_Clientes char(50) NOT NULL,
+Apellido_Clientes char(50) NOT NULL,
+Fecha_Nac_Clientes  smalldatetime  default getdate(),
+Sexo_Clientes CHAR(30)NOT NULL,
+Metodo_Captacion_Clientes VARCHAR(30),
+DNI_Clientes CHAR(15)NOT NULL,
+Direccion_Clientes VARCHAR (80) NOT NULL,
+Usuario_Clientes CHAR(20)NOT NULL,
+ImageURL_Clientes varchar(50) not null,
+
+CONSTRAINT PK_Clientes PRIMARY KEY  (DNI_Clientes)
+)
+
+
+--CUENTAS   ############################################
+
+CREATE TABLE Cuentas(
+Email_Cuentas VARCHAR (50) NOT NULL,
+Pass_Cuentas VARCHAR(30)NOT NULL,
+DNI_Cuentas CHAR (15) NOT NULL,
+Usuario_Cuentas CHAR(30)NOT NULL,
+CP_Cuentas CHAR(8),
+Nivel_Cuentas  int ,
+ImageURL_Cuentas varchar(50) not null,
+
+CONSTRAINT PK_Cuentas PRIMARY KEY  (Email_Cuentas),
+CONSTRAINT FK_Cuentas_clientes foreign KEY  (DNI_Cuentas) references  Clientes (DNI_Clientes)
+)
+
+
+--VENTAS    #########################################  
+
+  
+CREATE TABLE Ventas (
+Id_Ventas int IDENTITY (1,1) NOT NULL,
+Total_Ventas DECIMAL(8,2) DEFAULT '0,00',
+Cliente_Ventas char(50) NOT NULL,
+Fecha_Ventas  smalldatetime  default getdate(),
+Subtotal_Ventas decimal(8,2) default '0,00',
+Iva_Ventas decimal(8,2) default '0,00',
+CONSTRAINT PK_Ventas PRIMARY KEY (Id_Ventas)
+)
+   
+--DETALLE DE VENTA ##################################
+  
+CREATE TABLE Detalle_Ventas(
+Id_Detalles int NOT NULL,
+Cantidad_Detalles DECIMAL(8,2) DEFAULT '0,00',
+PU_Detalles DECIMAL(8,2) DEFAULT '0,00',
+Subtotal_Detalles DECIMAL(8,2) DEFAULT '0,00',
+Id_Producto_Detalles char(30) NOT NULL,
+
+CONSTRAINT PK_Detalle PRIMARY KEY  ( Id_Producto_Detalles,Id_Detalles),
+CONSTRAINT FK_Detalle_Venta foreign KEY  (Id_Producto_Detalles) references Ventas (Id_Ventas)
+
+)
+ 
+--PRODUCTOS   ##########################################
+   
+CREATE TABLE Productos (
+Id_Productos CHAR(30) NOT NULL,
+PU_Productos DECIMAL(8,2) DEFAULT '0,00',
+Stock_Productos int NOT NULL,
+Categoria_Productos CHAR(20) not null,
+Descripcion_Productos VARCHAR(50) not null,
+ImageURL_Productos varchar(50) not null,
+
+CONSTRAINT PK_Productos PRIMARY KEY  ( Id_Productos)
+)
+
+--PROVEEDORES   ########################################
+
+CREATE TABLE Proveedores (
+Cuit_Proveedores char(15) NOT NULL,
+Razon_Social_Proveedores char(50) NOT NULL,
+Contacto_Proveedores char(50) NOT NULL,
+Direccion_Proveedores VARCHAR (80) NOT NULL,
+CBU_Proveedores char(50) NOT NULL,
+CONSTRAINT PK_Proveedores PRIMARY KEY ( Cuit_Proveedores)
+)
+
+--COMPRAS  ############################################
+
+CREATE TABLE Compras (
+Id_Compras int IDENTITY (1,1) NOT NULL,
+Total_Compras DECIMAL(8,2) DEFAULT '0,00',
+Cuit_Proveedor_Compras char(15) NOT NULL,
+Fecha_Compras smalldatetime  default getdate(),
+CONSTRAINT PK_Compras PRIMARY KEY  (Id_Compras),
+CONSTRAINT FK_Compras_Proveedores foreign KEY  (Cuit_proveedor_Compras) references  Proveedores (Cuit_Proveedores)
+)
+
+
+--DETALLE DE COMPRAS ################################
+
+CREATE TABLE Detalle_compras (
+Id_Detalle_Compras  int NOT NULL,
+Cantidad_Detalle_Compras char(50) NOT NULL,
+PU_Detalle_Compras DECIMAL(8,2) DEFAULT '0,00',
+Id_Producto_Detalle_Compras char(50) NOT NULL,
+CONSTRAINT PK_Detalle_compra PRIMARY KEY  ( Id_Producto_Detalle_Compras,Id_Detalle_Compras)
+)
+
+-- SUCURSALES (EX FRANQUICIAS)###########################
+
+CREATE TABLE Sucursales(
+   
+Id_Sucursales char(20)not null,
+Nombre_Sucursales  varchar (50) not null,
+Descripcion_Sucursales varchar (100) not null,
+Horario_Sucursales varchar(50) not null,
+Provincia_Sucursales varchar (50) not null,
+Direccion_Sucursales varchar (50) not null,
+CONSTRAINT PK_Sucursales PRIMARY KEY  ( Id_Sucursales) 
+)
+
+--CATEGORIAS  ############################################
+
+CREATE TABLE Categorias(
+Id_Categorias char(20) not null,
+Descripcion_Categorias char(50) not null,
+CONSTRIANT PK_Cateegorias PRIMARY KEY (Id_Categorias)
+)
+
+
+go
+
+-- PROCEDIMIENTO ALMACENADO "INSERTAR PRODUCTO"  ############################
+
+CREATE PROCEDURE spinsertarproducto
+(
+@PU_Productos decimal,
+@Id_Productos char,
+@Stock_Productos int,
+@Categoria_Productos char(30),
+@Descripcion_Productos varchar(30),
+@ImageURL_Productos varchar(50)
+)
+AS
+INSERT INTO Productos
+(
+PU_Productos,
+Id_Productos,
+Stock_Productos,
+Categoria_Productos,
+Descripcion_Productos,
+ImageURL_Productos
+)
+VALUES
+(
+@PU_Productos,
+@Id_Productos,
+@Stock_Productos,
+@Categoria_Productos,
+@Descripcion_Productos,
+@ImageURL_Productos
+)RETURN
+go
+
+-- PROCEDIMIENTO ALMACENADO "INSERTAR CUENTA"  #########################
+
+CREATE PROCEDURE spinsertarcuenta
+(
+@Email_Cuentas VARCHAR (50),
+@Pass_Cuentas VARCHAR(30),
+@DNI_Cuentas CHAR (15),
+@Usuario_Cuentas CHAR(30),
+@CP_Cuentas CHAR(8),
+@Nivel_Cuentas  int,
+@ImageURL_Cuentas varchar(50)
+)
+AS
+INSERT INTO Cuentas
+(
+Email_Cuentas,
+Pass_Cuentas,
+DNI_Cuentas,
+Usuario_Cuentas,
+CP_Cuentas,
+Nivel_Cuentas,
+ImageURL_Cuentas
+)
+VALUES
+(
+@Email_Cuentas,
+@Pass_Cuentas,
+@DNI_Cuentas,
+@Usuario_Cuentas,
+@CP_Cuentas,
+@Nivel_Cuentas,
+@ImageURL_Cuentas
+
+)RETURN
+go
+
+
+-- PROCEDIMIENTO ALMACENADO "INSERTAR CLIENTE"  #########################
+
+
+CREATE PROCEDURE spinsertarcliente
+(
+@Email_Clientes  VARCHAR (50),
+@Nombre_Clientes char(50),
+@Apellido_Clientes char(50),
+@Fecha_Nac_Clientes smalldatetime,
+@Sexo_Clientes CHAR(30),
+@Metodo_Captacion_Clientes VARCHAR(30),
+@DNI_Clientes CHAR(15),
+@Direccion_Clientes VARCHAR (80),
+@Usuario_Clientes CHAR(20),
+@ImageURL_Clientes varchar(50)
+)
+AS
+INSERT INTO Clientes
+(
+Email_Clientes,
+Nombre_Clientes,
+Apellido_Clientes,
+Fecha_Nac_Clientes,
+Sexo_Clientes,
+Metodo_Captacion_Clientes,
+DNI_Clientes,
+Direccion_Clientes,
+Usuario_Clientes,
+ImageURL_Clientes
+)
+VALUES
+(
+@Email_Clientes,
+@Nombre_Clientes,
+@Apellido_Clientes,
+@Fecha_Nac_Clientes,
+@Sexo_Clientes,
+@Metodo_Captacion_Clientes,
+@DNI_Clientes,
+@Direccion_Clientes,
+@Usuario_Clientes,
+@ImageURL_Clientes
+)RETURN
+go 	
