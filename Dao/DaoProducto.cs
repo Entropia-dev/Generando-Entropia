@@ -13,25 +13,30 @@ namespace Dao
     public class DaoProducto
     {
         AccesoDatos ds = new AccesoDatos();
+
+        // me trae un registro de cada columna
         public Productos getProducto(Productos pro)
         {
-            DataTable tabla = ds.ObtenerTabla("Producto", "Select * from producto where IdProducto=" + pro.get_codigo_producto());
+            DataTable tabla = ds.ObtenerTabla("Productos", "Select * from Productos where Id_Productos=" + pro.get_Id_Productos());
             //pro.set_codigo_producto(Convert.ToInt32(tabla.Rows[0][0].ToString()));
-            pro.set_codigo_producto(tabla.Rows[0][1].ToString());
-            pro.set_nombre_producto(tabla.Rows[0][2].ToString());
+            pro.set_Id_Productos(tabla.Rows[0][1].ToString());
+            pro.set_Descripcion_Productos(tabla.Rows[0][2].ToString());
             return pro;
         }
 
+        //metodo que verifica si la consulta existe
         public Boolean existeProducto(Productos pro)
         {
-            String consulta = "Select * from producto where NombreProducto='" + pro.get_codigo_producto() + "'";
+            String consulta = "Select * from Productos where Descripcion_Productos='" + pro.get_Descripcion_Productos() + "'";
             return ds.existe(consulta);
         }
 
-        public DataTable getTablaCategorias()
+
+        //metodo para obtener todos los productos 
+        public DataTable getTablaProductos()
         {
             // List<Producto> lista = new List<Producto>();
-            DataTable tabla = ds.ObtenerTabla("Producto", "Select * from producto");
+            DataTable tabla = ds.ObtenerTabla("Productos", "Select * from Productos");
             return tabla;
         }
 
@@ -43,29 +48,30 @@ namespace Dao
         }
 
 
-        /*public int agregarProducto(Productos pro)
+        public int agregarProducto(Productos pro)
         {
-
-            //pro.set_codigo_producto(ds.ObtenerMaximo("SELECT max(idProducto) FROM Producto") + 1);
+            //ver codigo original, este metodo espera un string // yo agregue Convert.ToString para solucionarlo
+            pro.set_Id_Productos(Convert.ToString(ds.ObtenerMaximo("SELECT* max(idProducto)FROM Productos"))+1);
             SqlCommand comando = new SqlCommand();
             ArmarParametrosProductoAgregar(ref comando, pro);
             return ds.EjecutarProcedimientoAlmacenado(comando, "spAgregarProducto");
         }
-        */
+        
+         
         private void ArmarParametrosProductoEliminar(ref SqlCommand Comando, Productos pro)
         {
             SqlParameter SqlParametros = new SqlParameter();
-            SqlParametros = Comando.Parameters.Add("@IDPRODUCTO", SqlDbType.Int);
-            SqlParametros.Value = pro.get_codigo_producto();
+            SqlParametros = Comando.Parameters.Add("@Id_Productos", SqlDbType.Int);
+            SqlParametros.Value = pro.get_Id_Productos();
         }
 
         private void ArmarParametrosProductoAgregar(ref SqlCommand Comando, Productos pro)
         {
             SqlParameter SqlParametros = new SqlParameter();
-            SqlParametros = Comando.Parameters.Add("@IDPRODUCTO", SqlDbType.Int);
-            SqlParametros.Value = pro.get_codigo_producto();
-            SqlParametros = Comando.Parameters.Add("@NOMBREPRO", SqlDbType.VarChar);
-            SqlParametros.Value = pro.get_nombre_producto();
+            SqlParametros = Comando.Parameters.Add("@Id_Productos", SqlDbType.Int);
+            SqlParametros.Value = pro.get_Id_Productos();
+            SqlParametros = Comando.Parameters.Add("@Descripcion_Productos", SqlDbType.VarChar);
+            SqlParametros.Value = pro.get_Descripcion_Productos();
         }
 
 
