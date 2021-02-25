@@ -57,20 +57,21 @@ namespace Dao
             return ds.EjecutarProcedimientoAlmacenado(comando, "spAgregarProducto");
         }
         
+         
         private void ArmarParametrosProductoEliminar(ref SqlCommand Comando, Productos pro)
         {
             SqlParameter SqlParametros = new SqlParameter();
-            SqlParametros = Comando.Parameters.Add("@IDPRODUCTO", SqlDbType.Int);
-            SqlParametros.Value = pro.get_codigo_producto();
+            SqlParametros = Comando.Parameters.Add("@Id_Productos", SqlDbType.Int);
+            SqlParametros.Value = pro.get_Id_Productos();
         }
 
         private void ArmarParametrosProductoAgregar(ref SqlCommand Comando, Productos pro)
         {
             SqlParameter SqlParametros = new SqlParameter();
-            SqlParametros = Comando.Parameters.Add("@IDPRODUCTO", SqlDbType.Int);
-            SqlParametros.Value = pro.get_codigo_producto();
-            SqlParametros = Comando.Parameters.Add("@NOMBREPRO", SqlDbType.VarChar);
-            SqlParametros.Value = pro.get_nombre_producto();
+            SqlParametros = Comando.Parameters.Add("@Id_Productos", SqlDbType.Int);
+            SqlParametros.Value = pro.get_Id_Productos();
+            SqlParametros = Comando.Parameters.Add("@Descripcion_Productos", SqlDbType.VarChar);
+            SqlParametros.Value = pro.get_Descripcion_Productos();
         }
 
 
