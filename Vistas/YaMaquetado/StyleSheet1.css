@@ -121,5 +121,6 @@ footer {
     top:; /**/
     bottom:; /**/
     right:; /**/
-    left:; /**/
+    left:;
+    height: 171px;
 }

@@ -16,3 +16,9 @@ C:\Users\Windows 10 Pro\Desktop\UTN gral\UTN 2020_1c\PROG3\TP_FINAL_VASS\1111\En
 C:\Users\Windows 10 Pro\Desktop\UTN gral\UTN 2020_1c\PROG3\TP_FINAL_VASS\1111\Entidades\obj\Debug\Entidades.csproj.CoreCompileInputs.cache
 C:\Users\Windows 10 Pro\Desktop\UTN gral\UTN 2020_1c\PROG3\TP_FINAL_VASS\1111\Entidades\obj\Debug\Entidades.dll
 C:\Users\Windows 10 Pro\Desktop\UTN gral\UTN 2020_1c\PROG3\TP_FINAL_VASS\1111\Entidades\obj\Debug\Entidades.pdb
+C:\Users\Windows 10 Pro\source\repos\Generando-Entropia\Entidades\bin\Debug\Entidades.dll
+C:\Users\Windows 10 Pro\source\repos\Generando-Entropia\Entidades\bin\Debug\Entidades.pdb
+C:\Users\Windows 10 Pro\source\repos\Generando-Entropia\Entidades\obj\Debug\Entidades.csprojAssemblyReference.cache
+C:\Users\Windows 10 Pro\source\repos\Generando-Entropia\Entidades\obj\Debug\Entidades.csproj.CoreCompileInputs.cache
+C:\Users\Windows 10 Pro\source\repos\Generando-Entropia\Entidades\obj\Debug\Entidades.dll
+C:\Users\Windows 10 Pro\source\repos\Generando-Entropia\Entidades\obj\Debug\Entidades.pdb
